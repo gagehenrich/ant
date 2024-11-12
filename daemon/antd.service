@@ -1,0 +1,26 @@
+[Unit]
+Description=Ant Job Scheduler Daemon
+After=network.target
+Documentation=https://github.com/gagehenrich/ant
+
+[Service]
+Type=simple
+User=$(whoami)
+Group=$(whoami)
+ExecStart=/usr/local/bin/antd
+WorkingDirectory=/var/lib/antd
+Restart=always
+RestartSec=5
+StandardOutput=append:/var/log/antd/antd.log
+StandardError=append:/var/log/antd/antd.error.log
+
+# Security hardening
+ProtectSystem=full
+ProtectHome=true
+NoNewPrivileges=true
+PrivateTmp=true
+PrivateDevices=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+
+[Install]
+WantedBy=multi-user.target~/sandbox/ant 
